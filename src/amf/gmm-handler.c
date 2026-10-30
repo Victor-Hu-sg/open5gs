@@ -118,7 +118,7 @@ ogs_nas_5gmm_cause_t gmm_handle_registration_request(amf_ue_t *amf_ue,
         
         ogs_error("Non cleartext IEs is included [0x%llx] mask=0x%x",
                 (long long)registration_request->presencemask,(unsigned int)unexpected_mask);        
-        return OGS_5GMM_CAUSE_SEMANTICALLY_INCORRECT_MESSAGE;
+        // return OGS_5GMM_CAUSE_SEMANTICALLY_INCORRECT_MESSAGE;
     }
 
     if (!h.integrity_protected &&
