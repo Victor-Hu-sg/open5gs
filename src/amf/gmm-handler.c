@@ -114,12 +114,10 @@ ogs_nas_5gmm_cause_t gmm_handle_registration_request(amf_ue_t *amf_ue,
     if (ngap_code == NGAP_ProcedureCode_id_InitialUEMessage &&
         registration_request->presencemask &
         ~OGS_REGISTRATION_CLEARTEXT_PRESENT) {
-        ogs_error("Non cleartext IEs is included [0x%llx]",
-                (long long)registration_request->presencemask);
-        ogs_error("DEBUG INFO -> Offending packet len: %d, first byte: 0x%x, second byte: 0x%x", 
-              (int)pkts->len, 
-              pkts->data > 0 ? pkts->data[0] : 0,
-              pkts->data > 1 ? pkts->data[1] : 0);
+        uint32_t unexpected_mask = registration_request->presencemask & ~OGS_REGISTRATION_CLEARTEXT_PRESENT;
+        
+        ogs_error("Non cleartext IEs is included [0x%llx] mask=0x%x",
+                (long long)registration_request->presencemask,(unsigned int)unexpected_mask);        
         return OGS_5GMM_CAUSE_SEMANTICALLY_INCORRECT_MESSAGE;
     }
 
